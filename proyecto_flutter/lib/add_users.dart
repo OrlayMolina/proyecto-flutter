@@ -60,6 +60,9 @@ class UserForm extends StatefulWidget {
 
 class UserFormState extends State<UserForm> {
   final _formKey = GlobalKey<FormState>();
+  var _nombre = TextEditingController();
+  var _apellido = TextEditingController();
+  var _correo = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +94,7 @@ class UserFormState extends State<UserForm> {
                 }
                 return null;
               },
+              controller: _nombre,
             ),
           ),
           ///Input Apellido
@@ -117,6 +121,7 @@ class UserFormState extends State<UserForm> {
                 }
                 return null;
               },
+              controller: _apellido,
             ),
           ),
           ///Input Correo
@@ -143,6 +148,7 @@ class UserFormState extends State<UserForm> {
                 }
                 return null;
               },
+              controller: _correo,
             ),
           ),
           Padding(
@@ -152,10 +158,13 @@ class UserFormState extends State<UserForm> {
               height: 60.0,
               onPressed: () => {
                 if(_formKey.currentState?.validate() ?? false){
-
+                  getData()
                 }
               },
               color: Colors.teal,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0), // Define el radio de borde
+              ),
               child: Text(
                 "Registrar",
                 style: const TextStyle(
@@ -168,6 +177,10 @@ class UserFormState extends State<UserForm> {
         ],
       ),
     );
+  }
+
+  getData(){
+    print(_nombre.text);
   }
   
 }

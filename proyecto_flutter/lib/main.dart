@@ -83,7 +83,12 @@ class MyHomePage extends State<HomePageMain> {
                         hintText: "Search...",
                         hintStyle: TextStyle(color: Colors.white)
                       ),
+                      onChanged: searchOperation,
                     );
+                    _handleSearchStart();
+                  }else {
+                    searchOperation(null);
+                    _handleSearchEnd();
                   }
                 });
               },
@@ -170,6 +175,33 @@ class MyHomePage extends State<HomePageMain> {
         ),
       ),
     );
+  }
+
+  void _handleSearchStart(){
+    setState(() {
+      _isSearching = true;
+    });
+  }
+
+  void _handleSearchEnd(){
+    setState(() {
+      this.icon = Icon(
+        Icons.search,
+        color: Colors.white,
+      );
+      this.appBarTitle = Text(
+        "Search user",
+        style: new TextStyle(color: Colors.white),
+      );
+      _isSearching = false;
+      _controller.clear();
+    });
+  }
+
+  void searchOperation(String? searchText){
+    if(_isSearching){
+      print(searchText);
+    }
   }
 
   Future userList(String? searchText) async {

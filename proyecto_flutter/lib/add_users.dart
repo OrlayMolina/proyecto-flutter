@@ -82,7 +82,7 @@ class UserFormState extends State<UserForm> {
                 fontSize: 20.0
               ),
               decoration: InputDecoration(
-                labelText: "Nombre: ",
+                labelText: "Nombre ",
                 prefixIcon: Icon(
                   Icons.person
                 ),
@@ -109,7 +109,7 @@ class UserFormState extends State<UserForm> {
                   fontSize: 20.0
               ),
               decoration: InputDecoration(
-                labelText: "Apellido: ",
+                labelText: "Apellido ",
                 prefixIcon: Icon(
                     Icons.person
                 ),
@@ -136,7 +136,7 @@ class UserFormState extends State<UserForm> {
                   fontSize: 20.0
               ),
               decoration: InputDecoration(
-                labelText: "Correo electrónico: ",
+                labelText: "Correo electrónico ",
                 prefixIcon: Icon(
                     Icons.email
                 ),

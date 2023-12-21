@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_flutter/main.dart';
 
 class AddUsers extends StatelessWidget {
   @override
@@ -29,7 +30,22 @@ class AddUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title, style: Theme.of(context).textTheme.titleLarge),),
+      appBar: AppBar(
+        title: Text(title, style: Theme.of(context).textTheme.titleLarge),
+        leading: IconButton(
+            onPressed: () => {
+              ///Pasamos el contexto de la pantalla en donde nos encontramos y a tráves de push indicamos a
+              ///que otra pantalla vamos a ir.
+              Navigator.of(context).push(PageRouteBuilder(
+                pageBuilder: (_,__,___) => MyApp(),
+              )),
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            )
+        )
+      ),
     );
   }
 }

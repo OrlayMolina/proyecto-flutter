@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_flutter/main.dart';
+import 'package:proyecto_flutter/models/user.dart';
+import 'package:proyecto_flutter/data/DBHelper.dart';
+
 
 class AddUsers extends StatelessWidget {
   @override
@@ -156,9 +159,10 @@ class UserFormState extends State<UserForm> {
             child: MaterialButton(
               minWidth: 200.0,
               height: 60.0,
-              onPressed: () => {
-                if(_formKey.currentState?.validate() ?? false){
-                  getData()
+              onPressed: () async {
+                if (_formKey.currentState?.validate() ?? false) {
+                  var _dbHelper = DBHelper();
+                  await _dbHelper.insertUser(User(id: 0, name: _nombre.text, lastname: _apellido.text, email: _correo.text));
                 }
               },
               color: Colors.teal,
@@ -177,10 +181,6 @@ class UserFormState extends State<UserForm> {
         ],
       ),
     );
-  }
-
-  getData(){
-    print(_nombre.text);
   }
   
 }

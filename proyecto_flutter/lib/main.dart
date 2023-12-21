@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_flutter/add_users.dart';
 
 void main() => runApp(MyApp());
 
@@ -38,7 +39,11 @@ class MyHomePage extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () => {
-
+                ///Pasamos el contexto de la pantalla en donde nos encontramos y a tráves de push indicamos a
+                ///que otra pantalla vamos a ir.
+                Navigator.of(context).push(PageRouteBuilder(
+                  pageBuilder: (_,__,___) => AddUsers(),
+                )),
               },
               icon: Icon(
                 Icons.add,

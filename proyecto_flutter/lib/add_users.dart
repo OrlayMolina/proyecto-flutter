@@ -91,7 +91,6 @@ class UserFormState extends State<UserForm> {
                 }
                 return null;
               },
-
             ),
           ),
           ///Input Apellido
@@ -112,7 +111,12 @@ class UserFormState extends State<UserForm> {
                   borderSide: BorderSide(),
                 ),
               ),
-
+              validator: (value){
+                if(value?.isEmpty ?? true){
+                  return 'Por favor ingrese el Apellido';
+                }
+                return null;
+              },
             ),
           ),
           ///Input Correo
@@ -133,7 +137,12 @@ class UserFormState extends State<UserForm> {
                   borderSide: BorderSide(),
                 ),
               ),
-
+              validator: (value){
+                if(value?.isEmpty ?? true){
+                  return 'Por favor ingrese el Correo electrónico';
+                }
+                return null;
+              },
             ),
           ),
           Padding(
@@ -142,7 +151,9 @@ class UserFormState extends State<UserForm> {
               minWidth: 200.0,
               height: 60.0,
               onPressed: () => {
+                if(_formKey.currentState?.validate() ?? false){
 
+                }
               },
               color: Colors.teal,
               child: Text(

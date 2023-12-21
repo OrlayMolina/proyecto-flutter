@@ -162,7 +162,12 @@ class UserFormState extends State<UserForm> {
               onPressed: () async {
                 if (_formKey.currentState?.validate() ?? false) {
                   var _dbHelper = DBHelper();
-                  await _dbHelper.insertUser(User(id: 0, name: _nombre.text, lastname: _apellido.text, email: _correo.text));
+                  await _dbHelper.insertUser(User(
+                      id: 0,
+                      name: _nombre.text,
+                      lastname: _apellido.text,
+                      email: _correo.text
+                  ), context);
                 }
               },
               color: Colors.teal,

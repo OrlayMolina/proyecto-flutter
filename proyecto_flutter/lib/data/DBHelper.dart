@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:proyecto_flutter/main.dart';
 import 'package:proyecto_flutter/models/user.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -31,14 +33,18 @@ class DBHelper {
     );
   }
 
-  Future<void> insertUser(User user) async {
+  Future<void> insertUser(User user, BuildContext context) async {
     ///Obtiene una referencia a la base de datos.
     final Database db = await database;
     await db.insert(
       'User',
       user.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace
-    );
+    ).then((int value) {
+      Navigator.of(context).push(PageRouteBuilder(
+        pageBuilder: (_,__,___) => MyApp(),
+      ));
+    });
 
   }
 }

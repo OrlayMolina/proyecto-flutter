@@ -23,7 +23,6 @@ class DBHelper {
       version: 1,
       onCreate: _createTables,
     );
-    print('[DBHelper] initDB: Success');
     return db;
   }
 
@@ -42,7 +41,7 @@ class DBHelper {
       conflictAlgorithm: ConflictAlgorithm.replace
     ).then((int value) {
       Navigator.of(context).push(PageRouteBuilder(
-        pageBuilder: (_,__,___) => MyApp(),
+        pageBuilder: (_,__,___) => const MyApp(),
       ));
     });
   }

@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_flutter/add_users.dart';
+import 'package:proyecto_flutter/data/DBHelper.dart';
 
 import 'models/user.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "App de Usuarios",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: Colors.deepOrange, // Personalizar el color del AppBar
         ),
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           titleLarge: TextStyle(
             color: Colors.white, // Cambiar el color del texto del título a blanco
             fontSize: 20, // Tamaño del texto del título
@@ -23,15 +26,26 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: MyHomePage(title: 'App de Usuarios'),
+      home: const HomePageMain(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String title;
+class HomePageMain extends StatefulWidget {
+  const HomePageMain({super.key});
 
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  @override
+  MyHomePage createState() => MyHomePage();
+
+}
+
+class MyHomePage extends State<HomePageMain> {
+  String title = 'App de Usuarios';
+  final DBHelper _dbHelper = DBHelper();
+  Widget _users = const SizedBox();
+  MyHomePage() {
+    userList(null);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,20 +58,25 @@ class MyHomePage extends StatelessWidget {
                 ///Pasamos el contexto de la pantalla en donde nos encontramos y a tráves de push indicamos a
                 ///que otra pantalla vamos a ir.
                 Navigator.of(context).push(PageRouteBuilder(
-                  pageBuilder: (_,__,___) => AddUsers(),
+                  pageBuilder: (_,__,___) => const AddUsers(),
                 )),
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.add,
                 color: Colors.white,
               )
           )
         ],
       ),
+      body: ListView(
+        children: [
+          _users
+        ],
+      ),
     );
   }
 
-  Container? buildItem(User doc){
+  Container buildItem(User doc){
     return Container(
       height: 120.0,
       margin: const EdgeInsets.symmetric(
@@ -77,13 +96,13 @@ class MyHomePage extends StatelessWidget {
       child: Container(
         height: 124.0,
         decoration: BoxDecoration(
-          color: Color(0xFF333366),
+          color: const Color(0xFF333366),
           borderRadius: BorderRadius.circular(8.0),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.black38,
               blurRadius: 5.0,
-              offset: new Offset(0.0, 5.0),
+              offset: Offset(0.0, 5.0),
             )
           ]
         ),
@@ -95,15 +114,15 @@ class MyHomePage extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '${doc.name}',
-                    style: TextStyle(
+                    doc.name,
+                    style: const TextStyle(
                       fontSize: 24,
                       color: Colors.white
                     ),
                   ),
                   Text(
-                    '${doc.lastname}',
-                    style: TextStyle(
+                    doc.lastname,
+                    style: const TextStyle(
                         fontSize: 24,
                         color: Colors.white
                     ),
@@ -115,5 +134,16 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future userList(String? searchText) async {
+    List<User>? listUser = await _dbHelper.getUsers();
+    setState((){
+      if(searchText == null || searchText == ""){
+        _users = Column(
+          children: listUser?.map((user) => buildItem(user)).toList() ?? [],
+        );
+      }
+        });
   }
 }

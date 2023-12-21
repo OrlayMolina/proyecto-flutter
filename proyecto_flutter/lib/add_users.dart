@@ -5,15 +5,17 @@ import 'package:proyecto_flutter/data/DBHelper.dart';
 
 
 class AddUsers extends StatelessWidget {
+  const AddUsers({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: Colors.deepOrange, // Personalizar el color del AppBar
         ),
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           titleLarge: TextStyle(
             color: Colors.white, // Cambiar el color del texto del título a blanco
             fontSize: 20, // Tamaño del texto del título
@@ -21,14 +23,14 @@ class AddUsers extends StatelessWidget {
           ),
         ),
       ),
-      home: AddUser(title: 'Registrar'),
+      home: const AddUser(title: 'Registrar'),
     );
   }
 }
 
 class AddUser extends StatelessWidget {
   final String title;
-  AddUser({Key? key, required this.title}) : super(key: key);
+  const AddUser({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,21 +42,23 @@ class AddUser extends StatelessWidget {
               ///Pasamos el contexto de la pantalla en donde nos encontramos y a tráves de push indicamos a
               ///que otra pantalla vamos a ir.
               Navigator.of(context).push(PageRouteBuilder(
-                pageBuilder: (_,__,___) => MyApp(),
+                pageBuilder: (_,__,___) => const MyApp(),
               )),
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios,
               color: Colors.white,
             )
         )
       ),
-      body: UserForm(),
+      body: const UserForm(),
     );
   }
 }
 
 class UserForm extends StatefulWidget {
+  const UserForm({super.key});
+
   @override
   UserFormState createState() {
     return UserFormState();
@@ -63,9 +67,9 @@ class UserForm extends StatefulWidget {
 
 class UserFormState extends State<UserForm> {
   final _formKey = GlobalKey<FormState>();
-  var _nombre = TextEditingController();
-  var _apellido = TextEditingController();
-  var _correo = TextEditingController();
+  final _nombre = TextEditingController();
+  final _apellido = TextEditingController();
+  final _correo = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -78,17 +82,17 @@ class UserFormState extends State<UserForm> {
             padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
             child: TextFormField(
               keyboardType: TextInputType.text,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20.0
               ),
               decoration: InputDecoration(
                 labelText: "Nombre ",
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Icons.person
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
-                  borderSide: BorderSide(),
+                  borderSide: const BorderSide(),
                 ),
               ),
               validator: (value){
@@ -105,17 +109,17 @@ class UserFormState extends State<UserForm> {
             padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
             child: TextFormField(
               keyboardType: TextInputType.text,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 20.0
               ),
               decoration: InputDecoration(
                 labelText: "Apellido ",
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                     Icons.person
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
-                  borderSide: BorderSide(),
+                  borderSide: const BorderSide(),
                 ),
               ),
               validator: (value){
@@ -132,17 +136,17 @@ class UserFormState extends State<UserForm> {
             padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
             child: TextFormField(
                 keyboardType: TextInputType.emailAddress,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 20.0
               ),
               decoration: InputDecoration(
                 labelText: "Correo electrónico ",
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                     Icons.email
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
-                  borderSide: BorderSide(),
+                  borderSide: const BorderSide(),
                 ),
               ),
               validator: (value){
@@ -161,8 +165,8 @@ class UserFormState extends State<UserForm> {
               height: 60.0,
               onPressed: () async {
                 if (_formKey.currentState?.validate() ?? false) {
-                  var _dbHelper = DBHelper();
-                  await _dbHelper.insertUser(User(
+                  var dbHelper = DBHelper();
+                  await dbHelper.insertUser(User(
                       id: 0,
                       name: _nombre.text,
                       lastname: _apellido.text,
@@ -174,9 +178,9 @@ class UserFormState extends State<UserForm> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0), // Define el radio de borde
               ),
-              child: Text(
+              child: const Text(
                 "Registrar",
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0
                 ),

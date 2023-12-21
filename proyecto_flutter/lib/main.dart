@@ -43,16 +43,52 @@ class MyHomePage extends State<HomePageMain> {
   String title = 'App de Usuarios';
   final DBHelper _dbHelper = DBHelper();
   Widget _users = const SizedBox();
+  Widget appBarTitle = Text(
+    "Search user",
+    style: TextStyle(color: Colors.white)
+  );
+  Icon icon = Icon(
+    Icons.search,
+    color: Colors.white
+  );
+  bool _isSearching = false;
+  BuildContext? _context;
+  final TextEditingController _controller = new TextEditingController();
   MyHomePage() {
     userList(null);
   }
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return Scaffold(
       appBar: AppBar(
-        title: Text(title, style: Theme.of(context).textTheme.titleLarge), // Aplicar el estilo de titleLarge
+        title: appBarTitle, // Aplicar el estilo de titleLarge
         actions: [
+          IconButton(
+              onPressed: (){
+                setState(() {
+                  if(this.icon.icon == Icons.search){
+                    this.icon = Icon(
+                      Icons.close,
+                      color: Colors.white
+                    );
+                    this.appBarTitle = TextField(
+                      controller: _controller,
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.search, color: Colors.white),
+                        hintText: "Search...",
+                        hintStyle: TextStyle(color: Colors.white)
+                      ),
+                    );
+                  }
+                });
+              },
+              icon: icon
+          ),
           IconButton(
               onPressed: () => {
                 ///Pasamos el contexto de la pantalla en donde nos encontramos y a tráves de push indicamos a

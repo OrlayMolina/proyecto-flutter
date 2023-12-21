@@ -45,6 +45,18 @@ class DBHelper {
         pageBuilder: (_,__,___) => MyApp(),
       ));
     });
+  }
 
+  Future<List<User>?> getUsers() async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('User');
+    return List.generate(maps.length, (i) {
+      return User(
+          id: maps[i]['id'],
+          name: maps[i]['name'],
+          lastname: maps[i]['lastname'],
+          email: maps[i]['email'],
+      );
+    });
   }
 }

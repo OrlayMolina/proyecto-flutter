@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_flutter/add_users.dart';
 
+import 'models/user.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -51,6 +53,66 @@ class MyHomePage extends StatelessWidget {
               )
           )
         ],
+      ),
+    );
+  }
+
+  Container? buildItem(User doc){
+    return Container(
+      height: 120.0,
+      margin: const EdgeInsets.symmetric(
+        vertical: 5.0,
+        horizontal: 5.0
+      ),
+      child: Stack(
+        children: [
+          card(doc)
+        ],
+      ),
+    );
+  }
+
+  GestureDetector card(User doc){
+    return GestureDetector(
+      child: Container(
+        height: 124.0,
+        decoration: BoxDecoration(
+          color: Color(0xFF333366),
+          borderRadius: BorderRadius.circular(8.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black38,
+              blurRadius: 5.0,
+              offset: new Offset(0.0, 5.0),
+            )
+          ]
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    '${doc.name}',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white
+                    ),
+                  ),
+                  Text(
+                    '${doc.lastname}',
+                    style: TextStyle(
+                        fontSize: 24,
+                        color: Colors.white
+                    ),
+                  ),
+                ],
+              )
+            ],
+          )
+        ),
       ),
     );
   }

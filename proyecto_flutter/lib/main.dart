@@ -6,7 +6,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Curso de Dart",
+      title: "App de Usuarios",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         appBarTheme: AppBarTheme(
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: MyHomePage(title: 'Curso de Dart'),
+      home: MyHomePage(title: 'App de Usuarios'),
     );
   }
 }
@@ -34,7 +34,18 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title, style: Theme.of(context).textTheme.titleLarge), // Aplicar el estilo de headline6
+        title: Text(title, style: Theme.of(context).textTheme.titleLarge), // Aplicar el estilo de titleLarge
+        actions: [
+          IconButton(
+              onPressed: () => {
+
+              },
+              icon: Icon(
+                Icons.add,
+                color: Colors.white,
+              )
+          )
+        ],
       ),
     );
   }

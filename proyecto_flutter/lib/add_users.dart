@@ -46,6 +46,117 @@ class AddUser extends StatelessWidget {
             )
         )
       ),
+      body: UserForm(),
     );
   }
+}
+
+class UserForm extends StatefulWidget {
+  @override
+  UserFormState createState() {
+    return UserFormState();
+  }
+}
+
+class UserFormState extends State<UserForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: ListView(
+        children: [
+          ///Input Nombre
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+            child: TextFormField(
+              keyboardType: TextInputType.text,
+              style: TextStyle(
+                fontSize: 20.0
+              ),
+              decoration: InputDecoration(
+                labelText: "Nombre: ",
+                prefixIcon: Icon(
+                  Icons.person
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide(),
+                ),
+              ),
+              validator: (value){
+                if(value?.isEmpty ?? true){
+                  return 'Por favor ingrese el Nombre';
+                }
+                return null;
+              },
+
+            ),
+          ),
+          ///Input Apellido
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+            child: TextFormField(
+              keyboardType: TextInputType.text,
+              style: TextStyle(
+                  fontSize: 20.0
+              ),
+              decoration: InputDecoration(
+                labelText: "Apellido: ",
+                prefixIcon: Icon(
+                    Icons.person
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide(),
+                ),
+              ),
+
+            ),
+          ),
+          ///Input Correo
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+            child: TextFormField(
+                keyboardType: TextInputType.emailAddress,
+              style: TextStyle(
+                  fontSize: 20.0
+              ),
+              decoration: InputDecoration(
+                labelText: "Correo electrónico: ",
+                prefixIcon: Icon(
+                    Icons.email
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide(),
+                ),
+              ),
+
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
+            child: MaterialButton(
+              minWidth: 200.0,
+              height: 60.0,
+              onPressed: () => {
+
+              },
+              color: Colors.teal,
+              child: Text(
+                "Registrar",
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+  
 }

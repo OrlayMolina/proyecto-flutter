@@ -200,17 +200,31 @@ class MyHomePage extends State<HomePageMain> {
 
   void searchOperation(String? searchText){
     if(_isSearching){
-      print(searchText);
+      userList(searchText);
     }
   }
 
   Future userList(String? searchText) async {
     List<User>? listUser = await _dbHelper.getUsers();
     setState((){
-      if(searchText == null || searchText == ""){
-        _users = Column(
-          children: listUser?.map((user) => buildItem(user)).toList() ?? [],
-        );
+      if(listUser != null){
+        if(searchText == null || searchText == ""){
+          _users = Column(
+            children: listUser?.map((user) => buildItem(user)).toList() ?? [],
+          );
+        }else {
+          var usuario = listUser?.where((item) => item.name.startsWith(searchText)).toList() ?? [];
+
+          if(0 < usuario.length){
+            _users = Column(
+              children: usuario?.map((user) => buildItem(user)).toList() ?? [],
+            );
+          }else {
+            _users = SizedBox();
+          }
+        }
+      }else {
+        _users = SizedBox();
       }
         });
   }

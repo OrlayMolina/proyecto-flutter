@@ -10,7 +10,8 @@ Proyecto en Dart utilizando SQLite en Android Studio y Flutter para gestionar us
 <b> Inicio de la aplicación.</b>
 
 <hr>
-![2](https://github.com/OrlayMolina/proyecto-flutter/assets/111409267/16947343-edfb-4f4e-b4d3-912155b2e165)
+
+![2](https://github.com/OrlayMolina/proyecto-flutter/assets/111409267/ee9e0cd4-6ce5-4746-a173-db0e8b968641)
 
 
 <br>

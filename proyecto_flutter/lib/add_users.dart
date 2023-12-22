@@ -5,7 +5,8 @@ import 'package:proyecto_flutter/data/DBHelper.dart';
 
 
 class AddUsers extends StatelessWidget {
-  AddUsers(User? user);
+  final User? _user;
+  const AddUsers(this._user, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +25,8 @@ class AddUsers extends StatelessWidget {
         ),
       ),
       routes: <String, WidgetBuilder>{
-        '/AddUsers': (BuildContext context) => AddUsers(null),
-        '/MyApp': (BuildContext context) => MyApp(),
+        '/AddUsers': (BuildContext context) => const AddUsers(null),
+        '/MyApp': (BuildContext context) => const MyApp(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -42,7 +43,7 @@ class AddUsers extends StatelessWidget {
                 )
             ),
         ),
-        body: const UserForm(),
+        body: UserForm(_user),
       ),
     );
   }
@@ -77,19 +78,28 @@ class AddUsers extends StatelessWidget {
 }*/
 
 class UserForm extends StatefulWidget {
-  const UserForm({super.key});
+  final User? _user;
+  const UserForm(this._user, {super.key});
 
   @override
   UserFormState createState() {
-    return UserFormState();
+    return UserFormState(_user);
   }
 }
 
 class UserFormState extends State<UserForm> {
+  final User? _user;
   final _formKey = GlobalKey<FormState>();
   final _nombre = TextEditingController();
   final _apellido = TextEditingController();
   final _correo = TextEditingController();
+  UserFormState(this._user){
+    if(_user != null){
+      _nombre.text = _user.name;
+      _apellido.text = _user.lastname;
+      _correo.text = _user.email;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -186,12 +196,20 @@ class UserFormState extends State<UserForm> {
               onPressed: () async {
                 if (_formKey.currentState?.validate() ?? false) {
                   var dbHelper = DBHelper();
-                  await dbHelper.insertUser(User(
-                      id: 0,
-                      name: _nombre.text,
-                      lastname: _apellido.text,
-                      email: _correo.text
-                  ), context);
+                  if(_user == null){
+                    await dbHelper.insertUser(User(
+                        id: 0,
+                        name: _nombre.text,
+                        lastname: _apellido.text,
+                        email: _correo.text
+                    ), context);
+                  }else {
+                    _user.name = _nombre.text;
+                    _user.lastname = _apellido.text;
+                    _user.email = _correo.text;
+                    dbHelper.updateUser(_user);
+                  }
+                  Navigator.of(context).pushNamedAndRemoveUntil('/MyApp', ModalRoute.withName('/MyApp'));
                 }
               },
               color: Colors.teal,

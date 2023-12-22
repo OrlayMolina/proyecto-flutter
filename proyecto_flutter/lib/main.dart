@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
       ),
       home: const HomePageMain(),
       routes: <String, WidgetBuilder> {
-        '/MyApp': (BuildContext context) => MyApp(),
-        '/AddUsers': (BuildContext context) => AddUsers(null),
+        '/MyApp': (BuildContext context) => const MyApp(),
+        '/AddUsers': (BuildContext context) => const AddUsers(null),
       },
     );
   }
@@ -47,17 +47,17 @@ class MyHomePage extends State<HomePageMain> {
   String title = 'App de Usuarios';
   final DBHelper _dbHelper = DBHelper();
   Widget _users = const SizedBox();
-  Widget appBarTitle = Text(
+  Widget appBarTitle = const Text(
     "Search user",
     style: TextStyle(color: Colors.white)
   );
-  Icon icon = Icon(
+  Icon icon = const Icon(
     Icons.search,
     color: Colors.white
   );
   bool _isSearching = false;
   BuildContext? _context;
-  final TextEditingController _controller = new TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   MyHomePage() {
     userList(null);
   }
@@ -72,17 +72,17 @@ class MyHomePage extends State<HomePageMain> {
           IconButton(
               onPressed: (){
                 setState(() {
-                  if(this.icon.icon == Icons.search){
-                    this.icon = Icon(
+                  if(icon.icon == Icons.search){
+                    icon = const Icon(
                       Icons.close,
                       color: Colors.white
                     );
-                    this.appBarTitle = TextField(
+                    appBarTitle = TextField(
                       controller: _controller,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white
                       ),
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.search, color: Colors.white),
                         hintText: "Search...",
                         hintStyle: TextStyle(color: Colors.white)
@@ -148,7 +148,7 @@ class MyHomePage extends State<HomePageMain> {
       child: Container(
         height: 124.0,
         decoration: BoxDecoration(
-          color: const Color(0xFF333366),
+          color: const Color(0xFF008A7C),
           borderRadius: BorderRadius.circular(8.0),
           boxShadow: const [
             BoxShadow(
@@ -197,13 +197,13 @@ class MyHomePage extends State<HomePageMain> {
 
   void _handleSearchEnd(){
     setState(() {
-      this.icon = Icon(
+      icon = const Icon(
         Icons.search,
         color: Colors.white,
       );
-      this.appBarTitle = Text(
+      appBarTitle = const Text(
         "Search user",
-        style: new TextStyle(color: Colors.white),
+        style: TextStyle(color: Colors.white),
       );
       _isSearching = false;
       _controller.clear();
@@ -222,21 +222,21 @@ class MyHomePage extends State<HomePageMain> {
       if(listUser != null){
         if(searchText == null || searchText == ""){
           _users = Column(
-            children: listUser?.map((user) => buildItem(user)).toList() ?? [],
+            children: listUser.map((user) => buildItem(user)).toList() ?? [],
           );
         }else {
-          var usuario = listUser?.where((item) => item.name.startsWith(searchText)).toList() ?? [];
+          var usuario = listUser.where((item) => item.name.startsWith(searchText)).toList() ?? [];
 
-          if(0 < usuario.length){
+          if(usuario.isNotEmpty){
             _users = Column(
-              children: usuario?.map((user) => buildItem(user)).toList() ?? [],
+              children: usuario.map((user) => buildItem(user)).toList() ?? [],
             );
           }else {
-            _users = SizedBox();
+            _users = const SizedBox();
           }
         }
       }else {
-        _users = SizedBox();
+        _users = const SizedBox();
       }
         });
   }
@@ -246,11 +246,11 @@ class MyHomePage extends State<HomePageMain> {
       context: _context!,
       builder: (BuildContext context){
         return AlertDialog(
-          title: Text('Eliminar usuario'),
+          title: const Text('Eliminar usuario'),
           content: Text('Esta seguro de eliminar el siguiente usuario ${user.name}'),
           actions: <Widget>[
             TextButton(
-              child: Text(
+              child: const Text(
                 'Cancelar'
               ),
               onPressed: () {
@@ -258,7 +258,7 @@ class MyHomePage extends State<HomePageMain> {
               },
             ),
             TextButton(
-              child: Text(
+              child: const Text(
                   'Ok'
               ),
               onPressed: () async {

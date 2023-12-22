@@ -134,6 +134,9 @@ class MyHomePage extends State<HomePageMain> {
 
   GestureDetector card(User doc){
     return GestureDetector(
+      onLongPress: () {
+        _ackAlert(doc);
+      },
       child: Container(
         height: 124.0,
         decoration: BoxDecoration(
@@ -227,5 +230,35 @@ class MyHomePage extends State<HomePageMain> {
         _users = SizedBox();
       }
         });
+  }
+
+  Future<void> _ackAlert(User user){
+    return showDialog<void>(
+      context: _context!,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text('Eliminar usuario'),
+          content: Text('Esta seguro de eliminar el siguiente usuario ${user.name}'),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'Cancelar'
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(
+                  'Ok'
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      }
+    );
   }
 }

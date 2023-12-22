@@ -27,6 +27,10 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: const HomePageMain(),
+      routes: <String, WidgetBuilder> {
+        '/MyApp': (BuildContext context) => MyApp(),
+        '/AddUsers': (BuildContext context) => AddUsers(null),
+      },
     );
   }
 }
@@ -98,9 +102,7 @@ class MyHomePage extends State<HomePageMain> {
               onPressed: () => {
                 ///Pasamos el contexto de la pantalla en donde nos encontramos y a tráves de push indicamos a
                 ///que otra pantalla vamos a ir.
-                Navigator.of(context).push(PageRouteBuilder(
-                  pageBuilder: (_,__,___) => const AddUsers(),
-                )),
+                Navigator.of(context).pushNamed('/AddUsers'),
               },
               icon: const Icon(
                 Icons.add,
@@ -137,6 +139,12 @@ class MyHomePage extends State<HomePageMain> {
       onLongPress: () {
         _ackAlert(doc);
       },
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => AddUsers(doc))
+        );
+      },
       child: Container(
         height: 124.0,
         decoration: BoxDecoration(
@@ -164,15 +172,16 @@ class MyHomePage extends State<HomePageMain> {
                       color: Colors.white
                     ),
                   ),
-                  Text(
-                    doc.lastname,
-                    style: const TextStyle(
-                        fontSize: 24,
-                        color: Colors.white
-                    ),
-                  ),
+
                 ],
-              )
+              ),
+              Text(
+                doc.lastname,
+                style: const TextStyle(
+                    fontSize: 24,
+                    color: Colors.white
+                ),
+              ),
             ],
           )
         ),

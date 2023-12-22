@@ -5,7 +5,7 @@ import 'package:proyecto_flutter/data/DBHelper.dart';
 
 
 class AddUsers extends StatelessWidget {
-  const AddUsers({super.key});
+  AddUsers(User? user);
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +23,32 @@ class AddUsers extends StatelessWidget {
           ),
         ),
       ),
-      home: const AddUser(title: 'Registrar'),
+      routes: <String, WidgetBuilder>{
+        '/AddUsers': (BuildContext context) => AddUsers(null),
+        '/MyApp': (BuildContext context) => MyApp(),
+      },
+      home: Scaffold(
+        appBar: AppBar(
+            title: Text('Registrar', style: Theme.of(context).textTheme.titleLarge),
+            leading: IconButton(
+                onPressed: () => {
+                  ///Pasamos el contexto de la pantalla en donde nos encontramos y a tráves de push indicamos a
+                  ///que otra pantalla vamos a ir.
+                  Navigator.of(context).pushReplacementNamed('/MyApp'),
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                )
+            ),
+        ),
+        body: const UserForm(),
+      ),
     );
   }
 }
 
-class AddUser extends StatelessWidget {
+/*class AddUser extends StatelessWidget {
   final String title;
   const AddUser({Key? key, required this.title}) : super(key: key);
 
@@ -54,7 +74,7 @@ class AddUser extends StatelessWidget {
       body: const UserForm(),
     );
   }
-}
+}*/
 
 class UserForm extends StatefulWidget {
   const UserForm({super.key});

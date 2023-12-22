@@ -58,4 +58,13 @@ class DBHelper {
       );
     });
   }
+
+  Future<void> deleteUser(int id)async {
+    final db = await database;
+    await db.delete(
+      'User',
+      where: "id = ?",
+      whereArgs: [id],
+    );
+  }
 }

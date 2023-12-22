@@ -232,7 +232,7 @@ class MyHomePage extends State<HomePageMain> {
         });
   }
 
-  Future<void> _ackAlert(User user){
+  Future<void> _ackAlert(User user) {
     return showDialog<void>(
       context: _context!,
       builder: (BuildContext context){
@@ -252,7 +252,9 @@ class MyHomePage extends State<HomePageMain> {
               child: Text(
                   'Ok'
               ),
-              onPressed: () {
+              onPressed: () async {
+                await _dbHelper.deleteUser(user.id);
+                userList(null);
                 Navigator.of(context).pop();
               },
             ),
